@@ -1,0 +1,37 @@
+<div class="bg-img">
+  <div class="wrapper">
+    <div class="title">
+      Biz Clinic
+    </div>
+    <form [formGroup]="rf">
+      <div class="field">
+        <input type="text" required formControlName="phone">
+        <label>Tài khoản</label>
+      </div>
+      <div class="field">
+        <input type="password" required formControlName="password">
+        <label>Mật khẩu</label>
+      </div>
+      <div class="content">
+        <div class="checkbox">
+          <input type="checkbox" id="remember-me">
+          <label for="remember-me">Ghi nhớ đăng nhập</label>
+        </div>
+        <!--        <div class="pass-link">-->
+        <!--          <a href="#">Quên mật khẩu?</a>-->
+        <!--        </div>-->
+      </div>
+      <div class="field">
+        <input type="submit" value="ĐĂNG NHẬP" [disabled]="rf.invalid" (click)="onSubmit()">
+      </div>
+      <div class="signup-link">
+<!--        Không phải thành viên? <a href="#">Đăng ký ngay</a>-->
+        Giải pháp quản lý hệ thống phòng khám thông minh Biz Clinic.
+      </div>
+    </form>
+  </div>
+
+  <footer class="  py-3">
+    Copyright © 2024. All rights reserved. Developed by BizUp co.ltd
+  </footer>
+</div>

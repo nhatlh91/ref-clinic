@@ -1,0 +1,73 @@
+<h3 class="text-center p-2 mat-elevation-z1 bg-blue"> THÔNG TIN NHÂN SỰ </h3>
+<form [formGroup]="reactiveForm" class="container">
+  <div class="container-fluid mt-3 mb-3">
+    <section class="row ps-2 pe-2">
+      <mat-form-field appearance="outline" class="col-6">
+        <mat-label> Họ và tên</mat-label>
+        <input matInput formControlName="fullName" required>
+        @if (reactiveForm.controls['fullName'].touched && reactiveForm.controls['fullName'].hasError('required')) {
+          <mat-error>
+            Thông tin bắt buộc
+          </mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="col-3">
+        <mat-label> Số điện thoại</mat-label>
+        <input matInput type="text" formControlName="phone" required>
+        @if (reactiveForm.controls['phone'].touched && reactiveForm.controls['phone'].hasError('required')) {
+          <mat-error>
+            Thông tin bắt buộc
+          </mat-error>
+        }
+        @if (reactiveForm.controls['phone'].touched && reactiveForm.controls['phone'].hasError('pattern')) {
+          <mat-error>
+            Số điện thoại không đúng
+          </mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="col-3">
+        <mat-label> Vai trò</mat-label>
+        <mat-select formControlName="role" required>
+          @for (role of roles; track role) {
+            <mat-option [value]="role">{{ role }}</mat-option>
+          }
+        </mat-select>
+        @if (reactiveForm.controls['role'].touched && reactiveForm.controls['role'].hasError('required')) {
+          <mat-error>
+            Thông tin bắt buộc
+          </mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="col-6">
+        <mat-label> Mật khẩu</mat-label>
+        <input matInput type="password" formControlName="password" required>
+        @if (reactiveForm.controls['password'].touched && reactiveForm.controls['password'].hasError('required')) {
+          <mat-error>
+            Thông tin bắt buộc
+          </mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="col-6">
+        <mat-label> Xác nhận mật khẩu</mat-label>
+        <input matInput type="password" formControlName="confirmPassword" required>
+        @if (reactiveForm.controls['confirmPassword'].touched && reactiveForm.controls['confirmPassword'].hasError('required')) {
+          <mat-error>
+            Thông tin bắt buộc
+          </mat-error>
+        }
+      </mat-form-field>
+    </section>
+
+    <div class="row ">
+      <div class="d-flex justify-content-center">
+        <button mat-raised-button [mat-dialog-close]="reactiveForm.value" color="primary"
+                type="submit"
+                [disabled]="reactiveForm.invalid || reactiveForm.controls['password'].value != reactiveForm.controls['confirmPassword'].value">
+          Lưu
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+
+

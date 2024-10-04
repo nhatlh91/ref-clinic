@@ -1,0 +1,106 @@
+<div class="d-flex justify-content-between align-items-center ps-4" style="background-color: var(--blue)">
+  <h3 class="mt-2">MẪU IN CHỨNG TỪ</h3>
+</div>
+<mat-dialog-content class="p-0">
+  <div class="invoice-wrapper" id="print-section">
+    <div class="invoice">
+      <div class="invoice-container" #htmlContent>
+        <div class="invoice-head">
+          <div class="invoice-head-top d-flex justify-content-between align-items-center">
+            <div class="invoice-head-top-left text-start">
+              <img src="assets/images/bizup.png" style="height: 40px; width: 120px">
+            </div>
+            <div class="invoice-head-top-right text-end mt-3">
+              <h3>PHIẾU ĐĂNG KÝ DỊCH VỤ</h3>
+            </div>
+          </div>
+          <hr>
+          <div class="invoice-head-middle">
+            <div class="invoice-head-middle-left text-start">
+              <p><span class="text-bold">Ngày</span>: {{ data.createDate|date }}</p>
+              <div class="invoice-head-bottom-left">
+                <ul>
+                  <li class='text-bold'>Khách hàng:</li>
+                  <li>{{ data.patientName }}</li>
+                  <li>{{ data.patientIdentity }}</li>
+                </ul>
+              </div>
+            </div>
+            <div class="invoice-head-middle-right text-end">
+              <p><span class="text-bold">Phiếu khám số: </span>{{ data.registrationId }}</p>
+              <div class="invoice-head-bottom-right">
+                <ul class="text-end">
+                  <li class='text-bold'>Phòng khám:</li>
+                  <li>Khoa.</li>
+                  <li>Duy Xuyên</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="overflow-view">
+          <div class="invoice-body">
+            <table>
+              <thead>
+              <tr>
+                <td class="text-bold"> #</td>
+                <td class="text-bold">Dịch vụ sử dụng</td>
+                <td class="text-bold">Diễn giải</td>
+                <td class="text-bold">Số lượng</td>
+                <td class="text-bold text-end">Phí dịch vụ</td>
+              </tr>
+              </thead>
+              <tbody>
+                @for (item of data.services; track item; let i = $index) {
+                  <tr>
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ item.serviceName }}</td>
+                    <td></td>
+                    <td>1</td>
+                    <td class="text-end">{{ item.price|number }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+            <div class="invoice-body-bottom">
+              <div class="invoice-body-info-item border-bottom">
+                <div class="info-item-td text-end text-bold">Tổng phí dịch vụ:</div>
+                <div class="info-item-td text-end">{{ data.totalAmount|number }}</div>
+              </div>
+              <div class="invoice-body-info-item border-bottom">
+                <div class="info-item-td text-end text-bold">Thuế:</div>
+                <div class="info-item-td text-end">0</div>
+              </div>
+              <div class="invoice-body-info-item">
+                <div class="info-item-td text-end text-bold">Tổng thanh toán:</div>
+                <div class="info-item-td text-end">{{ data.totalAmount|number }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="invoice-foot text-center">
+          <p><span class="text-bold text-center">Lưu ý:&nbsp;</span> Kiểm tra lại các dịch vụ trước khi thanh toán.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="bg-gray-cus pe-4">
+  <button mat-icon-button type="button" matTooltip="In"
+          printSectionId="print-section" ngxPrint
+          printTitle="invoice"
+          [useExistingCss]="true"
+          [openNewTab]="true"
+          [previewOnly]="false"
+          [closeWindow]="true">
+    <i class='bx bx-printer'></i>
+  </button>
+
+  <button mat-icon-button type="button" matTooltip="Thanh toán và hoàn tất"
+          (click)="close()">
+        <span>
+          <mat-icon>payment</mat-icon>
+        </span>
+  </button>
+</mat-dialog-actions>

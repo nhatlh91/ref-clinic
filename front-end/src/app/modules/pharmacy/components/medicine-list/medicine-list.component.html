@@ -1,0 +1,81 @@
+<div class="row text-end p-0 m-0">
+  <div class="d-flex justify-content-between justify-content-center align-items-center ps-4 pe-4">
+    <button mat-button aria-readonly="true" class="text-center">
+      DANH MỤC THUỐC / THIẾT BỊ / VẬT TƯ
+    </button>
+    @if (fullAccess) {
+      <div>
+        <button mat-icon-button matTooltip="Thêm mới" (click)="create()" class="ms-auto" color="">
+          <i class='bx bx-book-add'></i>
+        </button>
+        <button mat-icon-button matTooltip="Tải xuống" (click)="onExportExcelClicked()" class="ms-auto">
+          <i class='bx bx-cloud-download' ></i>
+        </button>
+      </div>
+    }
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <mat-form-field appearance="outline" class="ps-4 pe-4">
+      <input matInput (keyup)="applyFilter($event)"
+             placeholder="Tìm kiếm thuốc...">
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl scroll-table ps-4 pe-4">
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    <ng-container matColumnDef="activeIngredient">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> HOẠT CHẤT</th>
+      <td mat-cell *matCellDef="let item"> {{ item.activeIngredient }}</td>
+    </ng-container>
+    <ng-container matColumnDef="medicineName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> BIỆT DƯỢC</th>
+      <td mat-cell *matCellDef="let item"> {{ item.medicineName }}</td>
+    </ng-container>
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef> TÁC DỤNG</th>
+      <td mat-cell *matCellDef="let item"> {{ item.description }}</td>
+    </ng-container>
+    <ng-container matColumnDef="unit">
+      <th mat-header-cell *matHeaderCellDef> ĐVT</th>
+      <td mat-cell *matCellDef="let item"> {{ item.unit }}</td>
+    </ng-container>
+    <ng-container matColumnDef="strength">
+      <th mat-header-cell *matHeaderCellDef> HÀM LƯỢNG</th>
+      <td mat-cell *matCellDef="let item"> {{ item.strength }}</td>
+    </ng-container>
+    <ng-container matColumnDef="packaging">
+      <th mat-header-cell *matHeaderCellDef> QUY CÁCH</th>
+      <td mat-cell *matCellDef="let item"> {{ item.packaging }}</td>
+    </ng-container>
+    <ng-container matColumnDef="manufacturer">
+      <th mat-header-cell *matHeaderCellDef> NHÀ SẢN XUẤT</th>
+      <td mat-cell *matCellDef="let item"> {{ item.manufacturer }}</td>
+    </ng-container>
+    <ng-container matColumnDef="barcode">
+      <th mat-header-cell *matHeaderCellDef> MÃ VẠCH</th>
+      <td mat-cell *matCellDef="let item"> {{ item.barcode }}</td>
+    </ng-container>
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> THAO TÁC</th>
+      <td mat-cell *matCellDef="let item">
+        <button (click)="delete(item)" mat-icon-button color="warn" matTooltip="Xóa">
+          <i class='bx bx-trash' ></i>
+        </button>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let item; columns: displayedColumns"></tr>
+  </table>
+</div>
+<div class="ps-4 pe-4">
+  <mat-paginator [pageSize]="10"
+                 [pageSizeOptions]="[5, 10, 20]"
+                 [length]="dataSource.data.length"
+                 showFirstLastButtons
+                 aria-label="Select page of periodic elements">
+  </mat-paginator>
+</div>

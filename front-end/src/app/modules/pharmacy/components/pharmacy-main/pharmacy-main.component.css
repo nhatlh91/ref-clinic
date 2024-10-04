@@ -1,0 +1,4 @@
+.nav-sub button:hover,
+.nav-sub button:active {
+  color: var(--red);
+}

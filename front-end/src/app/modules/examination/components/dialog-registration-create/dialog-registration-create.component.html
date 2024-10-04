@@ -1,0 +1,71 @@
+<h3 class="bg-blue text-center p-2 mat-elevation-z1"> ĐĂNG KÝ KHÁM </h3>
+<!--  <hr>-->
+<form [formGroup]="reactiveForm" class="container">
+  <div class="container-fluid mt-3 mb-3">
+    <section class="row ps-2 pe-2">
+      <h4> Thông tin: </h4>
+      <mat-form-field class="col-3" appearance="outline">
+        <mat-label> Khách hàng</mat-label>
+        <input type="text" required
+               matInput [formControl]="patient"
+               [matAutocomplete]="auto"
+               (focusin)="changePatient()">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayPatient">
+          <mat-option *ngFor="let option of filteredPatient | async" [value]="option">
+            {{ option.phone }} - {{ option.patientName }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <mat-form-field class="col-3" appearance="outline">
+        <mat-label> Mã khách hàng</mat-label>
+        <input matInput type="text" value="{{identity}}" readonly>
+      </mat-form-field>
+
+      <mat-form-field class="col-3" appearance="outline">
+        <mat-label> Điện thoại</mat-label>
+        <input matInput type="text" value="{{phone}}" readonly>
+      </mat-form-field>
+
+      <mat-form-field class="col-3" appearance="outline">
+        <mat-label> Địa chỉ</mat-label>
+        <input matInput type="text" value="{{address}}" readonly>
+      </mat-form-field>
+    </section>
+
+    <section class="service row ps-2 pe-2">
+      <h4> Tổng tiền dịch vụ: {{ getTotal() |number }} VND </h4>
+      <mat-form-field class="col-12" appearance="outline">
+        <mat-label>Dịch vụ</mat-label>
+        <mat-select [formControl]="services" multiple required
+                    (selectionChange)="onServiceSelect()">
+          <mat-select-trigger>
+            {{ 'Đã chọn 1' }}
+            @if ((services.value?.length || 0) > 1) {
+              <span class="">
+                (+{{ (services.value?.length || 0) - 1 }} {{ services.value?.length === 2 ? 'Khác' : 'Khác' }})
+              </span>
+            }
+          </mat-select-trigger>
+
+          @for (service of serviceList; track service) {
+            <mat-option [value]="service">{{ service.serviceName }} - {{ service.price |number }} VND</mat-option>
+          }
+
+        </mat-select>
+      </mat-form-field>
+    </section>
+
+    <div class="row ">
+      <div class="d-flex justify-content-center">
+        <button mat-raised-button mat-dialog-close [mat-dialog-close]="reactiveForm.value" color="primary"
+                type="submit" [disabled]="reactiveForm.invalid || !isValid"
+                (click)="submitForm()">
+          Lưu
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+
+

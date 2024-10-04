@@ -1,0 +1,9 @@
+.footer {
+  position: absolute;
+  top: calc(90%);
+  /*left: 50%;*/
+  z-index: 999;
+  /*text-align: center;*/
+  width: 100%;
+  /*transform: translate(-48%, -48%);*/
+}

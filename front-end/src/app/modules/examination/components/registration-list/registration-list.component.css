@@ -1,0 +1,13 @@
+table {
+  width: 100%;
+}
+
+.mat-mdc-form-field {
+  padding-left: 10px;
+  font-size: 14px;
+  width: 100%;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}

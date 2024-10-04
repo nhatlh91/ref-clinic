@@ -1,0 +1,52 @@
+<div class=" text-center d-flex justify-content-center align-items-center brand">
+  <a class=" text-white">
+<!--            <img src="assets/images/logo.png" alt="" style="width: 45px;height: 45px">-->
+  </a>
+</div>
+<ul class="side-menu top">
+  <li class="">
+    <button mat-icon-button color="primary" routerLink="/dashboard" matTooltip="Tổng quan">
+      <i class='bx bxs-dashboard'></i>
+    </button>
+  </li>
+  <li class="">
+    <button mat-icon-button color="primary" routerLink="/production/booking" matTooltip="Đặt lịch">
+      <i class='bx bx-calendar'></i>
+    </button>
+  </li>
+  <li class="">
+    <button mat-icon-button color="primary" routerLink="/production/receptionist" matTooltip="Lễ tân">
+      <i class='bx bxs-user' ></i>
+    </button>
+  </li>
+  <li class="">
+    <button mat-icon-button color="primary" routerLink="/production/doctor" matTooltip="Bác sĩ">
+      <!--      <mat-icon> local_hospital</mat-icon>-->
+      <i class='bx bx-plus-medical'></i>
+    </button>
+  </li>
+  <li class="">
+    <button mat-icon-button color="primary" routerLink="/production/pharmacist" matTooltip="Dược sĩ">
+      <!--      <mat-icon>medication</mat-icon>-->
+      <i class='bx bxs-capsule'></i>
+    </button>
+  </li>
+  <li class="">
+    <button mat-icon-button color="primary" routerLink="/production/employee" matTooltip="Nhân sự">
+      <i class='bx bxs-group' ></i>
+    </button>
+  </li>
+  <li class="">
+    <button mat-icon-button color="primary" routerLink="/production/report" matTooltip="Báo cáo">
+      <i class='bx bxs-report' ></i>
+    </button>
+  </li>
+
+</ul>
+<ul class="side-menu footer">
+  <li class="">
+    <button color="warn" mat-icon-button matTooltip="Đăng xuất" (click)="signOut()">
+      <i class='bx bx-log-out'></i>
+    </button>
+  </li>
+</ul>

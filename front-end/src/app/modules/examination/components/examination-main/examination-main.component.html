@@ -1,0 +1,19 @@
+<div class="nav-sub">
+  <button mat-icon-button matTooltip="Danh sách" [matMenuTriggerFor]="menu">
+    <i class='bx bx-list-ul' ></i>
+  </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink="/production/doctor">
+        <i class='bx bx-radio-circle-marked' ></i> Danh sách đang phục vụ
+      </button>
+      <button mat-menu-item routerLink="/production/doctor/prescription-template-list">
+        <i class='bx bx-radio-circle-marked' ></i> Danh sách đơn thuốc mẫu
+      </button>
+    </mat-menu>
+
+  <button mat-icon-button matTooltip="Tạo đơn thuốc mẫu" (click)="templateCreate()">
+    <i class='bx bxs-layer-plus'></i>
+  </button>
+</div>
+
+<router-outlet/>

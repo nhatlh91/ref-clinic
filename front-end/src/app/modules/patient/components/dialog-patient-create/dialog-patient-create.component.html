@@ -1,0 +1,73 @@
+<h3 class="bg-blue text-center p-2 mat-elevation-z1"> THÔNG TIN KHÁCH HÀNG </h3>
+<form [formGroup]="reactiveForm" class="container">
+  <div class="container-fluid mt-3 mb-3">
+    <section class="row ps-2 pe-2">
+      <mat-form-field appearance="outline" class="col-6">
+        <mat-label> Họ và Tên</mat-label>
+        <input matInput formControlName="patientName" required>
+        @if (reactiveForm.controls['patientName'].touched && reactiveForm.controls['patientName'].hasError('required')) {
+          <mat-error>
+            Thông tin bắt buộc
+          </mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="col-6">
+        <mat-label> Giới tính</mat-label>
+        <mat-select formControlName="gender" required>
+          <mat-option value="Nam">Nam</mat-option>
+          <mat-option value="Nữ">Nữ</mat-option>
+          <mat-option value="Khác">Khác</mat-option>
+        </mat-select>
+        @if (reactiveForm.controls['gender'].touched && reactiveForm.controls['gender'].hasError('required')) {
+          <mat-error>
+            Thông tin bắt buộc
+          </mat-error>
+        }
+      </mat-form-field>
+<!--      <mat-form-field appearance="outline" class="col-6">-->
+<!--        <mat-label> Năm sinh</mat-label>-->
+<!--        <input matInput [matDatepicker]="picker1" formControlName="birthday">-->
+<!--        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>-->
+<!--        <mat-datepicker #picker1></mat-datepicker>-->
+<!--      </mat-form-field>-->
+      <mat-form-field appearance="outline" class="col-6">
+        <mat-label> Năm sinh</mat-label>
+        <input matInput type="date" formControlName="birthday">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="col-6">
+        <mat-label> Số điện thoại</mat-label>
+        <input matInput type="" formControlName="phone" required>
+        @if (reactiveForm.controls['phone'].touched && reactiveForm.controls['phone'].hasError('pattern')) {
+          <mat-error>
+            Nhập sai định dạng
+          </mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="col-12">
+        <mat-label> Địa chỉ</mat-label>
+        <input matInput formControlName="address">
+<!--        @if (reactiveForm.controls['address'].touched && reactiveForm.controls['address'].hasError('required')) {-->
+<!--          <mat-error>-->
+<!--            Thông tin bắt buộc-->
+<!--          </mat-error>-->
+<!--        }-->
+        @if (reactiveForm.controls['address'].touched && reactiveForm.controls['address'].hasError('maxlength')) {
+          <mat-error>
+            Vượt quá số lượng ký tự cho phép
+          </mat-error>
+        }
+      </mat-form-field>
+    </section>
+
+    <div class="row ">
+      <div class="d-flex justify-content-center">
+        <button mat-raised-button [mat-dialog-close]="reactiveForm.value" color="primary"
+                type="submit" [disabled]="reactiveForm.invalid">
+          Lưu
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+
+

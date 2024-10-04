@@ -1,0 +1,68 @@
+<div class=" text-end p-0 m-0">
+  <div class="d-flex justify-content-between justify-content-center align-items-center ps-4 pe-4">
+    <button mat-button aria-readonly="true" class="text-center">
+      DANH SÁCH NHÂN SỰ
+    </button>
+    @if (role == 'ADMIN') {
+      <div>
+        <button mat-icon-button matTooltip='Thêm nhân sự' (click)="createDialog()">
+          <i class='bx bxs-user-plus' ></i>
+        </button>
+      </div>
+    }
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <mat-form-field appearance="outline" class="ps-4 pe-4">
+      <input matInput (keyup)="applyFilter($event)"
+             placeholder="Tìm kiếm theo tên, số điện thoại, vai trò...">
+    </mat-form-field>
+  </div>
+</div>
+
+<div
+  class="table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl scroll-table ps-4 pe-4">
+  <table mat-table [dataSource]="dataSource"
+         class="mat-elevation-z8">
+    <ng-container matColumnDef="fullName">
+      <th mat-header-cell *matHeaderCellDef> TÊN NHÂN SỰ</th>
+      <td mat-cell *matCellDef="let item"> {{ item.fullName }}</td>
+    </ng-container>
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef> SỐ ĐIỆN THOẠI</th>
+      <td mat-cell *matCellDef="let item"> {{ item.phone }}</td>
+    </ng-container>
+    <ng-container matColumnDef="role">
+      <th mat-header-cell *matHeaderCellDef> VAI TRÒ</th>
+      <td mat-cell *matCellDef="let item"> {{ item.role }}</td>
+    </ng-container>
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> THAO TÁC</th>
+      <td mat-cell *matCellDef="let item">
+        @if (role == "ADMIN") {
+          <button mat-icon-button matTooltip="ĐỔI MẬT KHẨU" class="btn me-2 mb-1" color="primary"
+                  (click)="edit(item)">
+            <i class='bx bx-key'></i>
+          </button>
+          <button mat-icon-button matTooltip="XÓA TÀI KHOẢN" class="btn me-2 mb-1" color="warn"
+                  (click)="disable(item)">
+            <i class='bx bx-trash'></i>
+          </button>
+        }
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let item; columns: displayedColumns"></tr>
+  </table>
+</div>
+
+<!--<div class="ps-4 pe-4">-->
+<!--  <mat-paginator [pageSize]="10"-->
+<!--                 [pageSizeOptions]="[5, 10, 20]"-->
+<!--                 [length]="dataSource.data.length"-->
+<!--                 showFirstLastButtons-->
+<!--                 aria-label="Select page of periodic elements">-->
+<!--  </mat-paginator>-->
+<!--</div>-->

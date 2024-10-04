@@ -1,0 +1,39 @@
+<div class="nav-sub mat-elevation-z0">
+  <button mat-icon-button matTooltip="Danh sách" [matMenuTriggerFor]="menu">
+    <i class='bx bx-list-ul'></i>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/production/pharmacist">
+      <i class='bx bx-radio-circle-marked'></i>
+      Danh mục vật tư
+    </button>
+    @if (fullAccess) {
+      <button mat-menu-item routerLink="/production/pharmacist/inventory">
+        <i class='bx bx-radio-circle-marked'></i>
+        Tồn kho vật tư
+      </button>
+      <button mat-menu-item routerLink="/production/pharmacist/import-list">
+        <i class='bx bx-radio-circle-marked'></i>
+        Lịch sử nhập kho
+      </button>
+      <button mat-menu-item routerLink="/production/pharmacist/export-list">
+        <i class='bx bx-radio-circle-marked'></i>
+        Lịch sử xuất kho
+      </button>
+    }
+  </mat-menu>
+  @if (fullAccess) {
+    <button mat-icon-button matTooltip="Mua hàng" (click)="dialogCreate()"
+            routerLink="/production/pharmacist/import-list">
+      <i class='bx bxs-purchase-tag-alt'></i>
+    </button>
+
+    <button mat-icon-button matTooltip="Bán hàng"
+            routerLink="/production/pharmacist/export-create">
+      <i class='bx bxs-cart-add'></i>
+    </button>
+  }
+</div>
+
+<router-outlet/>
+

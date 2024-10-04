@@ -1,0 +1,59 @@
+<h3 class="bg-blue text-center p-2 mat-elevation-z1"> THÊM MỚI DỊCH VỤ </h3>
+<form [formGroup]="reactiveForm" class="container">
+  <div class="container-fluid mt-3 mb-3">
+    <section class="row ps-2 pe-2">
+      <mat-form-field appearance="outline" class="col-8">
+        <mat-label> Tên dịch vụ</mat-label>
+        <input matInput formControlName="serviceName" required>
+        @if (reactiveForm.controls['serviceName'].touched && reactiveForm.controls['serviceName'].hasError('required')) {
+          <mat-error>
+            Thông tin bắt buộc
+          </mat-error>
+        }
+        @if (reactiveForm.controls['serviceName'].touched && reactiveForm.controls['serviceName'].hasError('maxlength')) {
+          <mat-error>
+            Số ký tự tối đa cho phép là 250
+          </mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="col-4">
+        <mat-label> Giá tiền</mat-label>
+        <input matInput type="number" formControlName="price" required>
+        @if (reactiveForm.controls['price'].touched && reactiveForm.controls['price'].hasError('required')) {
+          <mat-error>
+            Thông tin bắt buộc
+          </mat-error>
+        }
+        @if (reactiveForm.controls['price'].touched && reactiveForm.controls['price'].hasError('min')) {
+          <mat-error>
+            Giá tiền không thể nhỏ hơn 0
+          </mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="col-12">
+        <mat-label> Mô tả chi tiết</mat-label>
+        <input type="texarea" matInput formControlName="description" required>
+        @if (reactiveForm.controls['description'].touched && reactiveForm.controls['description'].hasError('required')) {
+          <mat-error>
+            Thông tin bắt buộc
+          </mat-error>
+        }
+        @if (reactiveForm.controls['description'].touched && reactiveForm.controls['description'].hasError('maxlength')) {
+          <mat-error>
+            Số ký tự tối đa cho phép là 1000
+          </mat-error>
+        }
+      </mat-form-field>
+    </section>
+    <div class="row ">
+      <div class="d-flex justify-content-center">
+        <button mat-raised-button [mat-dialog-close]="reactiveForm.value" color="primary"
+                type="submit" [disabled]="reactiveForm.invalid">
+          Lưu
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+
+

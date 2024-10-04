@@ -1,0 +1,21 @@
+<div class="container-fluid ">
+
+  <app-menu id="sidebar" [class.hide]="isHidden"></app-menu>
+
+  <div id="content">
+    <section class="container-fluid">
+      <nav class="header d-flex align-items-center">
+        <mat-slide-toggle (click)="toggleSidebar()"></mat-slide-toggle>
+
+<!--        <h2 class="text-end text-white p-0 m-0">Xin chào! {{ decryptedRole }}:  {{ decryptedName }}</h2>-->
+
+        <div class="ms-auto">
+          <span class="text-light">{{ currentDate }}</span>
+        </div>
+      </nav>
+
+      <router-outlet/>
+
+    </section>
+  </div>
+</div>

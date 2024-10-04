@@ -1,0 +1,106 @@
+<div class="d-flex justify-content-between align-items-center ps-4" style="background-color: var(--blue)">
+  <h3 class="mt-2">MẪU IN CHỨNG TỪ</h3>
+</div>
+<mat-dialog-content class="" style="overflow: auto; height: 1000px;">
+  <main class="container-fluid" #htmlContent id="print-section" >
+    <section class="row">
+      <div class="col-8">
+        <div class="text-start inline">
+          <p> Tên phòng khám</p>
+        </div>
+        <div class="text-start inline">
+          <p> Địa chỉ: Địa chỉ phòng khám </p>
+        </div>
+        <div class="text-start inline">
+          <p> SĐT: Số điện thoại phòng khám </p>
+        </div>
+        <div class="text-start inline">
+          <p> STK: xxxxxxxxxxxxx - Vietcombank </p>
+        </div>
+      </div>
+      <div class="col-4 d-flex justify-content-end">
+
+      </div>
+      <hr>
+      <div class="col-3"></div>
+      <div class="col-6 mt-2 d-flex justify-content-center">
+        <div class="text-center fs-6 inline-elements">
+          <h2> PHIẾU BÁN HÀNG </h2>
+          <p><i>Ngày {{ day }} tháng {{ month }} năm {{ year }} </i></p><br>
+          <p><i>Phiếu số: {{ voucher.exportVoucherId }} </i></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-4 mb-1 inline-elements ">
+      <p> Người mua hàng: {{ patient.patientName }} </p>
+    </section>
+
+    <section class="overflow-view">
+      <div class="invoice-body">
+        <table>
+          <thead>
+          <tr>
+            <td class="" rowspan="2" style="width: 5%;"> No.</td>
+            <td class="" rowspan="2" style="width: 40%;"> Tên hàng hoá</td>
+            <td class="" rowspan="2" style="width: 10%;"> ĐVT</td>
+            <td class="" rowspan="2" style="width: 10%;"> SL</td>
+            <td class="" rowspan="2" style="width: 10%;"> Đơn giá</td>
+            <td class="text-end" rowspan="2" style="width: 15%;"> Thành tiền</td>
+          </tr>
+          </thead>
+          <tbody>
+            @for (item of details; track item; let i = $index) {
+              <tr>
+                <td> {{ i + 1 }}</td>
+                <td class="text-start"> {{ item.medicineName }}</td>
+                <td> {{ item.unit }}</td>
+                <td> {{ item.quantity|number }}</td>
+                <td> {{ item.unitPrice|number }}</td>
+                <td class="text-end"> {{ item.quantity * item.unitPrice|number }}</td>
+            }
+          </tbody>
+        </table>
+        <div class="invoice-body-bottom">
+          <div class="invoice-body-info-item border-bottom">
+            <div class="info-item-td text-end text-bold">Tổng tiền hàng:</div>
+            <div class="info-item-td text-end">{{ voucher.total|number }}</div>
+          </div>
+          <div class="invoice-body-info-item border-bottom">
+            <div class="info-item-td text-end text-bold">Phụ phí:</div>
+            <div class="info-item-td text-end">{{ voucher.surcharge|number }}</div>
+          </div>
+          <div class="invoice-body-info-item">
+            <div class="info-item-td text-end text-bold">Tổng thanh toán:</div>
+            <div class="info-item-td text-end">{{ voucher.totalAmount|number }}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-1 footer ">
+      <div><p> Nhân viên bán hàng </p>
+        <i>(Ký, họ tên)</i>
+        <br><br><br><br>
+        <p>{{ voucher.createdBy }}</p>
+      </div>
+      <div><p> Người mua hàng </p>
+        <i>(Ký, họ tên)</i>
+        <br><br><br><br>
+        <p>{{ patient.patientName }}</p>
+      </div>
+    </section>
+  </main>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="bg-gray-cus">
+  <button mat-icon-button type="button" matTooltip="In" color="primary"
+          printSectionId="print-section" ngxPrint
+          printTitle="invoice"
+          [useExistingCss]="true"
+          [openNewTab]="true"
+          [previewOnly]="false"
+          [closeWindow]="true">
+    <i class='bx bx-printer'></i>
+  </button>
+</mat-dialog-actions>

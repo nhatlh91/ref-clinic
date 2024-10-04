@@ -1,0 +1,35 @@
+.my-input {
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+td {
+  white-space: nowrap;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 5px 10px;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  padding: 5px;
+  background-color: transparent;
+}
+
+.search-button {
+  /*background-color: #0c2f54;*/
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #666;
+}

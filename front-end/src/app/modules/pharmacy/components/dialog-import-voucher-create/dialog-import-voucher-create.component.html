@@ -1,0 +1,178 @@
+<h3 class="text-center m-0 p-2 mat-elevation-z1 bg-blue">PHIẾU NHẬP KHO</h3>
+<form [formGroup]="reactiveForm">
+  <mat-dialog-content>
+    <div class="row ">
+      <label><h4 class="">Thông tin:</h4></label>
+
+      <mat-form-field appearance="outline" class="col-3">
+        <mat-label> Ngày tạo</mat-label>
+        <input matInput [matDatepicker]="picker1" formControlName="createDate">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="col-3">
+        <mat-label> Người tạo</mat-label>
+        <input matInput type="text" class="my-input" formControlName="createdBy" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="col-3">
+        <mat-label> Nhà cung cấp</mat-label>
+        <input matInput type="text" class="my-input" formControlName="vendor" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="col-3">
+        <mat-label> Diễn giải</mat-label>
+        <input matInput type="text" class="my-input" formControlName="description">
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <label><h4 class=""> Chi tiết:</h4></label>
+
+      <!--            <mat-form-field appearance="outline" class="col-3" [hidden]="hideFields">-->
+      <!--              <mat-label> Quét mã vạch</mat-label>-->
+      <!--              <input matInput type="text" class="my-input" formControlName="scanBarcode" (input)="scanItem()">-->
+      <!--            </mat-form-field>-->
+
+      <!--            <mat-form-field appearance="outline" class="col-3" [hidden]="!hideFields">-->
+      <!--              <mat-label> Tìm sản phẩm</mat-label>-->
+      <!--              <input type="text" matInput-->
+      <!--                     [formControl]="item"-->
+      <!--                     [matAutocomplete]="auto"-->
+      <!--                     (focusin)="changeItem()">-->
+      <!--              <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayItem">-->
+      <!--                <mat-option *ngFor="let option of filteredItem | async" [value]="option">-->
+      <!--                  {{ option.medicineName }}-->
+      <!--                </mat-option>-->
+      <!--              </mat-autocomplete>-->
+      <!--            </mat-form-field>-->
+
+      <!--            <div class="col-4">-->
+      <!--              <button mat-icon-button matTooltip="Quét mã vạch" color="primary"-->
+      <!--                      [hidden]="!hideFields"-->
+      <!--                      (click)="hideFields = !hideFields">-->
+      <!--                <i class='bx bx-scan'></i>-->
+      <!--              </button>-->
+      <!--              <button mat-icon-button matTooltip="Tìm sản phẩm" color="primary"-->
+      <!--                      [hidden]="hideFields"-->
+      <!--                      (click)="hideFields = !hideFields">-->
+      <!--                <mat-icon>find_in_page</mat-icon>-->
+      <!--              </button>-->
+      <!--            </div>-->
+
+      <div class="col-3 mb-3">
+        <div class="search-box" [hidden]="hideFields">
+          <input type="text" class="search-input" placeholder="Quét mã vạch..." formControlName="scanBarcode"
+                 (input)="scanItem()">
+          <a class="search-button" matTooltip="Quét mã vaạch"
+             [hidden]="hideFields"
+             (click)="hideFields = !hideFields">
+            <i class='bx bx-scan'></i>
+          </a>
+        </div>
+
+        <div class="search-box" [hidden]="!hideFields">
+          <input type="text" class="search-input" placeholder="Nhập tìm kiếm..."
+                 [formControl]="item"
+                 [matAutocomplete]="auto"
+                 (focusin)="changeItem()">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayItem">
+            <mat-option *ngFor="let option of filteredItem | async" [value]="option">
+              {{ option.activeIngredient }} - {{ option.medicineName }}
+            </mat-option>
+          </mat-autocomplete>
+          <a class="search-button" matTooltip="Nhập tìm kiếm"
+             [hidden]="!hideFields"
+             (click)="hideFields = !hideFields">
+            <i class='bx bx-search-alt-2'></i>
+          </a>
+        </div>
+      </div>
+
+      @if (details && details.controls && details.controls.length <= 0) {
+        <div class="ps-2 pe-2">
+          <div class="alert alert-warning text-danger" role="alert">
+            Chưa có sản phẩm nào được chọn!
+          </div>
+        </div>
+      }
+    </div>
+
+    <div formArrayName="details">
+      @if (details && details.controls && details.controls.length > 0) {
+        <table class="table table-hover table-responsive-sm table-responsive-md
+                      table-responsive-lg table-responsive-xl scroll-table align-middle">
+          <thead>
+          <tr class="">
+            <td class="text-nowrap"> #</td>
+            <!--              <td class="text-nowrap"> Mã</td>-->
+            <td class="text-nowrap"> Tên hàng</td>
+            <td class="text-nowrap"> Đơn vị tính</td>
+            <td class="text-nowrap"> Đơn giá</td>
+            <td class="text-nowrap"> Số lượng</td>
+            <td class="text-nowrap"> HSD</td>
+            <td class="text-nowrap"> Thao tác</td>
+          </tr>
+          </thead>
+          <tbody class="">
+            @for (item of details.controls; track item; let i = $index) {
+              <tr [formGroupName]="i">
+                <td> {{ i + 1 }}</td>
+                <!--                    <td><input matInput type="text" class="my-input" readonly-->
+                <!--                               formControlName="barcode"></td>-->
+                <td><input matInput type="text" class="my-input" readonly
+                           formControlName="medicineName">
+                </td>
+                <td><input matInput type="text" class="my-input" readonly
+                           formControlName="unit">
+                </td>
+                <td><input matInput type="number" class="my-input" required
+                           formControlName="unitPrice"
+                           (input)="calculateAmount()"></td>
+                <td><input matInput type="number" class="my-input" required
+                           formControlName="quantity"
+                           (input)="calculateAmount()">
+                </td>
+                <td><input matInput type="date" class="my-input" required
+                           formControlName="expiryDate">
+                </td>
+                <td><a mat-icon-button color="accent" (click)="removeItem(i)">
+                  <mat-icon>delete</mat-icon>
+                </a></td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="center">
+    <div class="row">
+      <mat-form-field class="col-4" appearance="outline">
+        <mat-label>Tổng tiền hàng:</mat-label>
+        <input matInput type="text" class=" my-input" [value]="(reactiveForm.get('total')?.value)|number"
+               readonly>
+      </mat-form-field>
+      <mat-form-field class="col-4" appearance="outline">
+        <mat-label>Thuế VAT(%):</mat-label>
+        <input matInput type="number" class=" my-input" formControlName="vat" (input)="calculateAmount()">
+      </mat-form-field>
+      <mat-form-field class="col-4" appearance="outline">
+        <mat-label> Tổng thanh toán:</mat-label>
+        <input matInput type="text" class=" my-input" [value]="(reactiveForm.get('totalAmount')?.value)|number"
+               readonly>
+      </mat-form-field>
+      <div>
+        <button mat-raised-button color="primary" type="submit" class="text-center mt-2" matTooltip="Lưu"
+                [mat-dialog-close]="reactiveForm.value"
+                [disabled]="reactiveForm.invalid"
+                (click)="submitForm()">
+          Lưu
+        </button>
+      </div>
+
+    </div>
+  </mat-dialog-actions>
+</form>
+

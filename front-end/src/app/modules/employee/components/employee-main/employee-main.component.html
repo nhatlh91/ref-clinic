@@ -1,0 +1,18 @@
+<div class="nav-sub">
+  <button mat-icon-button matTooltip="Danh sách" [matMenuTriggerFor]="menu">
+    <i class='bx bx-list-ul' ></i>
+  </button>
+  <mat-menu #menu="matMenu">
+    <!--    <button mat-menu-item routerLink="/production/doctor">-->
+    <!--      <i class='bx bx-radio-circle-marked' ></i> Đăng ký-->
+    <!--    </button>-->
+    <button mat-menu-item routerLink="/production/employee">
+      <i class='bx bx-radio-circle-marked' ></i> Quản lý nhân sự
+    </button>
+    <!--    <button mat-menu-item routerLink="/production/doctor/service">-->
+    <!--      <i class='bx bx-radio-circle-marked' ></i> Dịch vụ-->
+    <!--    </button>-->
+  </mat-menu>
+</div>
+
+<router-outlet/>

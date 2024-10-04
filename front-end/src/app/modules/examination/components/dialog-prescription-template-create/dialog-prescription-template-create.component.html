@@ -1,0 +1,118 @@
+<h3 class="text-center m-0 p-2 mat-elevation-z1 bg-blue"> ĐƠN THUỐC MẪU</h3>
+<form [formGroup]="reactiveForm">
+  <mat-dialog-content>
+    <div class="row ">
+        <mat-form-field appearance="outline" class="">
+          <mat-label> Tên đơn mẫu: </mat-label>
+
+          <input matInput type="text" class="my-input" formControlName="description">
+        </mat-form-field>
+      <hr>
+      <div class="col-6 mb-3">
+        <div class="search-box" [hidden]="hideFields">
+          <input type="text" class="search-input" placeholder="Quét mã vạch..." formControlName="scanBarcode"
+                 (input)="scanItem()">
+          <a class="search-button" matTooltip="Quét mã vaạch"
+             [hidden]="hideFields"
+             (click)="hideFields = !hideFields">
+            <i class='bx bx-scan'></i>
+          </a>
+        </div>
+
+        <div class="search-box" [hidden]="!hideFields">
+          <input type="text" class="search-input" placeholder="Nhập tìm kiếm..."
+                 [formControl]="item"
+                 [matAutocomplete]="auto"
+                 (focusin)="changeItem()">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayItem">
+            <mat-option *ngFor="let option of filteredItem | async" [value]="option">
+              {{ option.activeIngredient }} - {{ option.medicineName }}
+            </mat-option>
+          </mat-autocomplete>
+          <a class="search-button" matTooltip="Nhập tìm kiếm"
+             [hidden]="!hideFields"
+             (click)="hideFields = !hideFields">
+            <i class='bx bx-search-alt-2'></i>
+          </a>
+        </div>
+      </div>
+
+      @if (details && details.controls && details.controls.length <= 0) {
+        <div class="ps-2 pe-2">
+          <div class="alert alert-warning text-danger" role="alert">
+            Chưa có sản phẩm nào đợc chọn!
+          </div>
+        </div>
+      }
+    </div>
+
+    <div formArrayName="details">
+      @if (details && details.controls && details.controls.length > 0) {
+        <table class="table table-hover table-responsive-sm table-responsive-md
+                      table-responsive-lg table-responsive-xl scroll-table align-middle">
+          <thead>
+          <tr class="">
+            <td class="text-nowrap"> #</td>
+            <td class="text-nowrap"> Thuốc điều trị</td>
+            <td class="text-nowrap"> Đơn vị tính</td>
+            <td class="text-nowrap"> Cách dùng</td>
+            <td class="text-nowrap"> Sáng</td>
+            <td class="text-nowrap"> Trưa</td>
+            <td class="text-nowrap"> Chiều</td>
+            <td class="text-nowrap"> Tối</td>
+            <td class="text-nowrap"> Số ngày</td>
+            <td class="text-nowrap"> Thao tác</td>
+          </tr>
+          </thead>
+          <tbody class="">
+            @for (item of details.controls; track item; let i = $index) {
+              <tr [formGroupName]="i">
+                <td> {{ i + 1 }}</td>
+                <td><input matInput type="text" class="my-input" readonly
+                           formControlName="name">
+                </td>
+                <td><input matInput type="text" class="my-input" readonly
+                           formControlName="unit">
+                </td>
+                <td><input matInput type="text" class="my-input"
+                           formControlName="description" placeholder="...">
+                </td>
+                <td><input matInput type="number" class="my-input"
+                           formControlName="morning" placeholder="...">
+                </td>
+                <td><input matInput type="number" class="my-input"
+                           formControlName="lunch" placeholder="...">
+                </td>
+                <td><input matInput type="number" class="my-input"
+                           formControlName="afternoon" placeholder="...">
+                </td>
+                <td><input matInput type="number" class="my-input"
+                           formControlName="night" placeholder="...">
+                </td>
+                <td><input matInput type="number" class="my-input"
+                           formControlName="days" placeholder="...">
+                </td>
+                <td>
+                  <button mat-icon-button color="accent" (click)="removeItem(i)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="center">
+    <div class="row">
+      <button mat-raised-button color="primary" type="submit" class="text-center ms-4 mt-2" matTooltip="Lưu"
+              [mat-dialog-close]="reactiveForm.value"
+              [disabled]="reactiveForm.invalid"
+              (click)="submitForm()">
+        Lưu
+      </button>
+    </div>
+  </mat-dialog-actions>
+</form>
